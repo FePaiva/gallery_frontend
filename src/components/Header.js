@@ -4,7 +4,8 @@ import React from "react";
 function Header() {
   return (
     <div>
-      <h1 style={{backgroundRepeat:"no-repeat", backgroundPosition: "center", backgroundSize: "cover", textAlign: "center" }}> ISTANPAULO ART GALLERY</h1>
+      <h1 style={{textAlign: "center", fontFamily: "Helvetica"}}> ISTANPAULO ART GALLERY</h1>
+      <h3 style={{textAlign: "center" }}>The best art from Istanbul and Sao Paulo for You!</h3>
       {/* <img src={galeria} alt="galeria" id="main-header" /> */}
     </div>
   );

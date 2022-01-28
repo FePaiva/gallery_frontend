@@ -46,7 +46,8 @@ const handleSubmit = (e) => {
     Era:
     <input type="text" name="era" value={formData.era} onChange={handleChange}/>
     </label>
-    <input type="submit" value="Add Art" />
+    <input id="random-planeteer" type="submit" value="Add Art" /> 
+    
 </form>
   );
 }

@@ -40,10 +40,10 @@ body {
    padding: 0 20px;
    font-size: 1rem;
    text-align: center;
-   color: #fff;
+   color: rgb(221, 14, 14);
    text-shadow: 1px 1px 1px #000;
    border-radius: 10px;
-   background-color: rgba(220, 0, 0, 1);
+   background-color: rgb(192, 130, 130);
    background-image: linear-gradient(to top left,
                                      rgba(0, 0, 0, .2),
                                      rgba(0, 0, 0, .2) 30%,

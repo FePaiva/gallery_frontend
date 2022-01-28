@@ -5,10 +5,11 @@ import AddMasterpiece from "./AddMasterpiece";
 import ArtworksContainer from "./ArtworksContainer";
 import SearchBar from "./SearchBar";
 
+
 function App() {
 
 const [artworks, setArtworks] = useState ([])
-const [filteredArtworks, setFilteredArtworks] = useState(artworks)
+const [filteredArtworks, setFilteredArtworks] = useState([])
 const [lovers, setLovers] = useState([])
 const [reviews, setReviews] = useState([])
 
@@ -78,18 +79,20 @@ const postArtwork = (artwork) => {
           return artwork
         }
       }))
+      console.log(artwork)
     })
   } 
 
   //  delete artwork
   const handleDelete = (id) => {
-    fetch (`http://localhost:9292/artworks/${id}`, {
-      method: 'DELETE',
-    })
-    .then(res => res.json())
-    .then(data => {
-      setArtworks(artworks.filter(a => a.id !== id))
-    })
+    // fetch (`http://localhost:9292/artworks/${id}`, {
+    //   method: 'DELETE',
+    // })
+    // .then(res => res.json())
+    // .then(data => {
+    //   setArtworks(artworks.filter(a => a.id !== id))
+    // })
+    console.log(id)
   }
   
   return (
@@ -100,9 +103,9 @@ const postArtwork = (artwork) => {
       postArtwork={postArtwork} 
       />
       <ArtworksContainer artworks={filteredArtworks} reviews={reviews}
-      lovers={lovers} 
+      lovers={lovers} setArtworks={setArtworks}
       />
-      {artworks.map(a => <Artwork artwork ={a} patchArt={patchArt} handleDelete={handleDelete} key={`${a.id}${a.title}`}/>)}
+      {/* {artworks.length > 0 && artworks.map(a => <Artwork setArtworks={setArtworks} artworks={artworks} artwork ={a} patchArt={patchArt} handleDelete={handleDelete} key={`${a.id}${a.title}`}/>)} */}
     </div>
   );
 }
