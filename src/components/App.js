@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import Artwork from "./Artwork";
+import Artwork from "./Artwork";
 import Header from "./Header";
 import AddMasterpiece from "./AddMasterpiece";
 import ArtworksContainer from "./ArtworksContainer";
@@ -9,13 +9,12 @@ function App() {
 
 const [artworks, setArtworks] = useState ([])
 const [filteredArtworks, setFilteredArtworks] = useState(artworks)
-// const [lovers, setLovers] = useState([])
-// const [reviews, setReviews] = useState([])
-
+const [lovers, setLovers] = useState([])
+const [reviews, setReviews] = useState([])
 
 function handleSearch (e) {
   const filteredArtworks = artworks.filter(artwork => {
-    return artwork.title.toLowerCase().includes(e.target.value.toLowerCase()) || artwork.description.toLowerCase().includes(e.target.value.toLowerCase())
+    return artwork.title.toLowerCase().includes(e.target.value.toLowerCase())
   })
   setFilteredArtworks(filteredArtworks)
 }
@@ -32,44 +31,78 @@ useEffect (() => {
 },[])
 
 // fetch for lovers
-// useEffect (() => {
-//   fetch('http://localhost:9292/lovers')
-//   .then(response => response.json())
-//   .then(data=> setLovers(data))
-// },[])
+useEffect (() => {
+  fetch('http://localhost:9292/lovers')
+  .then(response => response.json())
+  .then(data=> setLovers(data))
+},[])
 
 // fetch for reviews
-// useEffect (() => {
-//   fetch('http://localhost:9292/reviews')
-//   .then(response => response.json())
-//   .then(data=> setReviews(data))
-// },[])
+useEffect (() => {
+  fetch('http://localhost:9292/reviews')
+  .then(response => response.json())
+  .then(data=> setReviews(data))
+},[])
 
-// create artworks for
-// const postArtwork = (artwork) => {
-//   fetch('http://localhost:9292/artworks', {
-//     method: 'POST',
-//     headers:{
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(artwork)
-//   })
-//   .then(res => res.jspn())
-//   .then(newArtwork => {
-//     setArtworks([newArtwork,...artworks])
-//   })
-// }
+// create artwork
+const postArtwork = (artwork) => {
+  fetch('http://localhost:9292/artworks', {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(artwork)
+  })
+  .then(res => res.json())
+  .then(newArtwork => {
+    setArtworks([newArtwork,...artworks])
+  })
+}
 
+ // patches artwork
+ const patchArt = (artwork) => {
+  fetch(`http://localhost:9292/artworks/${artwork.id}`, {
+    method: 'PATCH',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({...artwork, sale:false})
+  })
+  .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setArtworks(artworks.map(artwork => {
+        if(artwork.id === data.id){
+          return data
+        } else {
+          return artwork
+        }
+      }))
+    })
+  } 
+
+  //  delete artwork
+  const handleDelete = (id) => {
+    fetch (`http://localhost:9292/artworks/${id}`, {
+      method: 'DELETE',
+    })
+    .then(res => res.json())
+    .then(data => {
+      setArtworks(artworks.filter(a => a.id !== id))
+    })
+  }
+  
   return (
     <div>
       <Header  />
       <SearchBar handleSearch={handleSearch}/>
       <AddMasterpiece 
-      // postArtwork={postArtwork} 
+      postArtwork={postArtwork} 
       />
-      <ArtworksContainer artworks={filteredArtworks} 
-      // lovers={lovers} 
+      <ArtworksContainer artworks={filteredArtworks} reviews={reviews}
+      lovers={lovers} 
       />
+      {artworks.map(a => <Artwork artwork ={a} patchArt={patchArt} handleDelete={handleDelete} key={`${a.id}${a.title}`}/>)}
     </div>
   );
 }

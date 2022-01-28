@@ -8,7 +8,7 @@ function ArtworksContainer({artworks, lovers, reviews}) {
     <div className="artgallery-background" style={{ backgroundImage: `url(${artgaleria})`, backgroundRepeat:"no-repeat", backgroundPosition: "center", backgroundSize: "cover", textAlign: "center" }}> 
     <ul className="cards">
       {/* render a list of <Artworks> */}
-      {artworks.map(artwork => <Artwork artwork={artwork} key={artwork.id}/>)}
+      {artworks.map(artwork => <Artwork artwork={artwork} key={`${artwork.id}${artwork.name}`} reviews={reviews} lovers={lovers}/>)}
     </ul>
 
 </div>

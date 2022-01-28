@@ -10,43 +10,43 @@ function AddMasterpiece({postArtwork}) {
     description:'',
     image_url:'',
     era: ''
-})
-const handleChange = (e) => {
-  setFormData({...formData, [e.target.name]:e.target.value})
-}
-
+  })
+  
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]:e.target.value})
+  }
 const handleSubmit = (e) => {
   e.preventDefault()
   postArtwork(formData)
 } 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form style={{textAlign: 'center', padding:"10px"}}onSubmit={handleSubmit}>
     <label>
     Title:
-    <input type="text" name="name" value={formData.title} onChange={handleChange}/>
+    <input type="text" name="title" value={formData.title} onChange={handleChange}/>
     </label>
     <label>
     Artist:
-    <input type="text" name="species" value={formData.artist} onChange={handleChange}/>
+    <input type="text" name="artist" value={formData.artist} onChange={handleChange}/>
     </label>
     <label>
     Date:
-    <input type="number" name="age" value={formData.date} onChange={handleChange}/>
+    <input type="text" name="date" value={formData.date} onChange={handleChange}/>
     </label>
     <label>
     Description:
-    <input type="text" name="owner" value={formData.description} onChange={handleChange}/>
+    <input type="text" name="description" value={formData.description} onChange={handleChange}/>
     </label>
     <label>
     Image:
-    <input type="text" name="phone" value={formData.image_url} onChange={handleChange}/>
+    <input type="text" name="image_url" value={formData.image_url} onChange={handleChange}/>
     </label>
     <label>
-    Image:
-    <input type="text" name="phone" value={formData.image_url} onChange={handleChange}/>
+    Era:
+    <input type="text" name="era" value={formData.era} onChange={handleChange}/>
     </label>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Add Art" />
 </form>
   );
 }
